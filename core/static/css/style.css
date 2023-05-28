@@ -1,0 +1,458 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
+
+body {
+  height: 100%;
+  width: 100%;
+  margin: 0;
+  font-family: 'Poppins', sans-serif;
+  background-color: #f1efef;
+  min-height: 200vh;
+  overflow-x: hidden;
+}
+
+header {
+  width: 100%;
+  height: 80px;
+  background-color: #f1efef;
+}
+
+nav {
+  width: 100%;
+  height: 100%;
+  display:flex;
+  background-color: #f1efef;
+  border-bottom: 1px solid black;
+  
+}
+
+.nav-logo-container{
+  position: relative;
+  bottom: 15px;
+  width: 100%;
+  height: 70%;
+  padding-left: 20%;
+}
+
+.nav-info-container {
+  width: 100%;
+  height: 100%;
+  display:flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  padding-right: 20%;
+}
+
+nav h2 {
+  padding: 5px;
+}
+
+nav a {
+  display: block;
+  font-size: 20px;
+  padding: 5px;
+  margin: auto;
+  text-decoration: none;
+  color: black;
+}
+
+nav a:hover {
+  color: #acebbf;
+}
+
+#search-bar {
+  position: relative;
+  width: 100%;
+  height: 400px;
+}
+
+.search-section {
+  position: absolute;
+  margin:auto;
+  width: 25%;
+  padding: 5%;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #fffafa;
+  border-radius: 10px;
+  top: 50%;
+  left: 50%;
+  -moz-transform: translateX(-50%) translateY(-50%);
+  -webkit-transform: translateX(-50%) translateY(-50%);
+  transform: translateX(-50%) translateY(-50%);
+}
+
+.search-title h1 {
+  position: relative;
+  bottom: 20px;
+  font-size: 40px;
+}
+
+.search-section label {
+  margin-bottom: 0.2;
+  color: #7ee69d;
+  display: block;
+  font-size: 16px;
+}
+
+.search-section input {
+  padding: 0.2em;
+  border: 1px solid #7ee69d;
+  box-shadow: 2px 2px 2px rgb(0,0,0,0.2);
+  display: block;
+}
+
+.search-section input[type="text"] {
+  border-radius: 5px;
+}
+
+.search-section select {
+  padding: 0.2em;
+  border: 1px solid #7ee69d;
+  box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.2);
+  display: block;
+  border-radius: 5px;
+  width: 100%;
+  height: 24px;
+}
+
+.search-section #dataida {
+  border-bottom-left-radius: 5px ;
+  border-top-left-radius: 5px;
+}
+
+.search-section #datavolta {
+  border-bottom-right-radius: 5px ;
+  border-top-right-radius: 5px;
+}
+
+.button-search {
+  font-size:  1.2em;
+  background-color: #7ee69d;
+  border:none;
+  margin-bottom: 1em;
+  color: white;
+  padding: 0.2em 0.6em;
+  box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.2);
+  position: absolute;
+  top: 90%;
+  left: 50%;
+  margin-right: -50%;
+  transform: translate(-50%, -50%);
+  border-radius: 5px;
+}
+
+.button-search:hover {
+  cursor:pointer;
+  background-color: green;
+  box-shadow: inset 2px 2px 2px rgba(0,0,0,0.2);
+  text-shadow: none;
+}
+
+#most-searched {
+  margin: 2rem auto;
+  max-width: calc(100% - 80px);
+}
+
+.card-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(265px, 1fr));
+  gap: 2rem;
+}
+
+.card-image {
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+}
+
+.card-image img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 20px 20px 0 0;
+}
+
+.tour-date {
+  font-size: 12px;
+  color: #4CAF50;
+}
+
+.hotel-info {
+  margin: auto;
+}
+
+.hotel-icon {
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  display: inline;
+}
+
+.hotel-icon img {
+  max-height: 16px;
+  max-width: auto;
+  object-fit: cover;
+}
+
+.packet-card {
+  background-color: white;
+  border-radius: 20px;
+  transition: 0.3s;
+}
+
+.packet-card:hover {
+  box-shadow: 0 4px 20px 0 rgba(34, 68, 123, 0.2);
+  cursor: pointer;
+}
+
+.card-content {
+  padding: 2rem;
+}
+
+.card-content a {
+  text-decoration: none;
+  background-color: #7ee69d;
+  color: white;
+  padding: 5px;
+  border-radius: 5px;
+}
+
+.card-content h5 {
+  display: inline;
+}
+
+.attractions-icon {
+  margin-top: 2rem;
+  padding: 0;
+  overflow: hidden;
+  display: inline;
+  
+}
+
+.attractions-icon img {
+  max-height: 24px;
+  max-width: auto;
+  object-fit: cover;
+  display: inline;
+  margin: 4px;
+  border-radius: 2px;
+}
+
+.attractions-icon img:hover {
+  background-color: #7ee69d;
+}
+
+.form-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 60vh;
+}
+
+.filter-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 30vh;
+}
+
+.form {
+  width: 600px;
+  background-color: #fff9f9;
+  padding: 20px;
+  margin: 20px;
+  border-radius: 5px;
+  display: grid;
+  justify-content: center;
+  align-items: center;
+}
+
+.form input[type="text"],
+.form input[type="password"] {
+  width: 80%;
+  padding: 10px;
+  margin-bottom: 10px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+}
+
+.form select {
+  width: 90%;
+  padding: 10px;
+  margin-bottom: 10px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+}
+
+.form select option {
+  padding: 10px;
+}
+
+
+.form button {
+  width: 91%;
+  padding: 10px;
+  background-color: #4CAF50;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  margin: 5px;
+  cursor: pointer;
+}
+
+.form-heading {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.footer {
+  position: relative;
+  bottom: 0px;
+  width: 100%;
+  background-color: #000;
+  color: #fff;
+  padding: 40px;
+  text-align: center;
+}
+
+a:hover {
+  cursor:pointer;
+}
+
+
+.filter-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.filter-container p {
+  margin: 0;
+  flex-basis: 100%;
+}
+
+.filter-container input[type="number"],
+.filter-container input[type="text"],
+.filter-container select {
+  border-radius: 5px;
+  /* background-color: #7ee69d; */
+  border: none;
+  padding: 5px 10px;
+  margin-right: 10px;
+  border: 1px solid #7ee69d;
+}
+
+.filter-container button[type="submit"] {
+  display: block;
+  margin: 10px auto;
+  border-radius: 5px;
+  background-color: #7ee69d;
+  border: none;
+  padding: 10px 20px;
+}
+
+
+
+/* .filter-section {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  margin: 20px;
+}
+
+.filter-section label {
+  display: block;
+  width: 100px;
+  margin-bottom: 5px;
+}
+
+.filter-section input[type="text"],
+.filter-section select {
+  border-radius: 5px;
+  border: 2px solid #7ee69d;
+  padding: 5px;
+  height: 30px;
+  width: 150px;
+}
+
+.filter-section button {
+  border-radius: 5px;
+  background-color: #7ee69d;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  cursor: pointer;
+  margin-top: 10px;
+} */
+
+#comments  {
+  /* margin: 1rem auto; */
+  max-width: calc(100% - 80px);
+}
+
+.comments {
+  padding: 20px;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  overflow-x: hidden;
+  
+}
+
+.comments .comment-inner {
+  padding: 15px 25px;
+  width: 25%;
+}
+
+.comments-header {
+  margin: 2rem;
+}
+
+.comments .comment-content {
+  background-color: #7ee69d;
+  border-radius: 5px;
+  padding: 35px 20px;
+  min-width: 225px;
+  min-height: 315px;
+  width: 100%;
+}
+
+.comments .comment-content img {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%; 
+}
+
+.comments .comment-content .name-author{
+  color:#fffafa;
+  font-weight: 900;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  font-size: 22px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.comments .comment-content .comment-desc {
+  color: black;
+  font-size: 18px;
+  font-weight: 100;
+  margin: 5px 0 10px;
+  text-decoration: underline;
+}
+
+.comments .comment-content .full-desc {
+  color:black;
+  font-size: 16px;
+  line-height: 24px;
+}
+
+#advantages  {
+  margin: 2rem auto;
+  max-width: calc(100% - 100px);
+}

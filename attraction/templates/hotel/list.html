@@ -1,0 +1,34 @@
+{% extends 'core/base.html' %}
+
+{% block content %}
+{% load static %}
+{% load bootstrap5 %}
+{% bootstrap_css %}
+
+<div class="container">
+    <div class="container">
+        <h1>Lista de Hotéis</h1>
+        <table class="table">
+            <thead>
+            <tr>
+                <th>Nome</th>
+                <th>Endereço</th>
+                <th>Estrelas</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for hotel in hotels %}
+            <tr>
+                <td><a href="{% url 'attraction:hotel_detail' hotel.id %}">{{ hotel.name }}</td>
+                <td>{{ hotel.address }}, {{ hotel.city.name }} - {{ hotel.city.state.abbreviation }}</td>
+                <td>{{ hotel.category.description}}</td>
+            </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+{% endblock %}
+
+

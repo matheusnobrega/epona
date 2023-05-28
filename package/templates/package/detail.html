@@ -1,0 +1,143 @@
+{% extends 'core/base.html' %}
+{% block content %}
+{% load static %}
+{% load bootstrap5 %}
+{% bootstrap_css %}
+
+<div class="container mt-4">
+    <h1>Detalhes do Pacote de Viagem</h1>
+    <hr>
+
+    <!-- Informações do Pacote de Viagem -->
+    <div class="card">
+      <div class="card-body">
+        <h5 class="card-title">R${{ package.price }}</h5>
+        <h6 class="card-text">{{ package.city }}</h6>
+        <p class="card-text">Data de Início: {{ package.start_date|date:"d/m/Y" }} </p>
+        <p class="card-text">Data Fim: {{ package.end_date|date:"d/m/Y" }}</p>
+        <p class="card-text">Hotel: <a href="{% url 'attraction:hotel_detail' package.hotel.id %}">{{ package.hotel }} </a></p>
+
+        {% if user.is_authenticated %}
+                {% if user.is_superuser %}
+                    <a href="{% url 'package:package_update' package.id %}" >   
+                        <button class="btn btn-primary">Atualizar</button>
+                    </a>
+                    <a href="{% url 'package:package_delete' package.id %}">
+                        <button type="button" class="btn btn-danger">Deletar</button>
+                    </a>
+                {% endif %}
+
+                {% if has_bought %}
+                    <form method="POST" action="{% url 'package:sell_package' package.id %}">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-danger mt-3">Desfazer compra</button>
+                    </form>
+                {% else %}        
+                    <form method="POST" action="{% url 'package:buy_package' package.id %}">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-success mt-3">Comprar</button>
+                    </form>
+                {% endif %}   
+            {% endif %}
+      </div>
+    </div>
+
+    <!-- Lista de Atrações -->
+    <div class="card mt-4">
+      <div class="card-body">
+        <h5 class="card-title">Atrações</h5>
+        <ul class="list-group">
+          
+        {% for package_attraction in package_attractions %}
+            {% if package_attraction.attraction.type_attraction == 2 %}
+                {% if package_attraction.attraction.touristspot.type_tourist_spot == 0 %}
+                <li class="list-group-item">
+                    <h3 class="mb-1">{{ package_attraction.attraction.touristspot.name }} (Museu)</h3>
+                    <h5 class="mb-1">{{ package_attraction.visitation_date|date:"d/m/Y" }}</h5>
+                    <h6 class="mb-1">{{ package_attraction.attraction.touristspot.address }}</h6>
+                    <p class="mb-1"> {{ package_attraction.attraction.touristspot.description }}</p>
+                    <p class="mb-1">Fundado em: {{ package_attraction.attraction.touristspot.museum.foundation_date|date:"d/m/Y" }} </p>
+                    <p class="mb-1">Quantidade de salas: {{ package_attraction.attraction.touristspot.museum.number_rooms }} </p>
+                    {% if user.is_superuser %}
+                    <form method="POST" action="{% url 'package:remove_attraction' pk=package.id pack_attr_pk=package_attraction.id %}">
+                        {% csrf_token %}
+                        <button class="btn btn-sm btn-danger" type="submit">Deletar</button>
+                    </form>
+                    {% endif %}
+                </li>
+                {% endif %}
+
+                {% if package_attraction.attraction.touristspot.type_tourist_spot == 1 %}
+                <li class="list-group-item">
+                    <h3 class="mb-1">{{ package_attraction.attraction.touristspot.name }} (Igreja)
+
+                    </h3>
+                    <h5 class="mb-1">{{ package_attraction.visitation_date|date:"d/m/Y" }}</h5>
+                    <h6 class="mb-1">{{ package_attraction.attraction.touristspot.address }}</h6>
+                    <p class="mb-1">{{ package_attraction.attraction.touristspot.description }}</p>
+                    <p class="mb-1">Estilo de construção: {{ package_attraction.attraction.touristspot.church.construction_style }}</p>
+                    <p class="mb-1">Data de construção: {{ package_attraction.attraction.touristspot.church.construction_date|date:"d/m/Y" }}</p>
+                    {% if user.is_superuser %}
+                    <form method="POST" action="{% url 'package:remove_attraction' pk=package.id pack_attr_pk=package_attraction.id %}">
+                        {% csrf_token %}
+                        <button class="btn btn-sm btn-danger" type="submit">Deletar</button>
+                    </form>
+                    {% endif %}
+                </li>
+                {% endif %}
+
+                {% if package_attraction.attraction.touristspot.type_tourist_spot == 2 %}
+                <li class="list-group-item">
+                    <h3 class="mb-1">{{ package_attraction.attraction.touristspot.name }} (Parque)
+
+                    </h3>
+                    <h5 class="mb-1">{{ package_attraction.visitation_date|date:"d/m/Y" }}</h5>
+                    <h6 class="mb-1">{{ package_attraction.attraction.touristspot.address }}</h6>
+                    <p class="mb-1">{{ package_attraction.attraction.touristspot.description }}</p>
+                    <p class="mb-1">Tipo: {{ package_attraction.attraction.touristspot.park.type }} </p>
+                    {% if user.is_superuser %}
+                    <form method="POST" action="{% url 'package:remove_attraction' pk=package.id pack_attr_pk=package_attraction.id %}">
+                        {% csrf_token %}
+                        <button class="btn btn-sm btn-danger" type="submit">Deletar</button>
+                    </form>
+                    {% endif %}
+                </li>
+                {% endif %}
+
+                {% if package_attraction.attraction.touristspot.type_tourist_spot == 3 %}
+                <li class="list-group-item">
+                    <h3 class="mb-1">{{ package_attraction.attraction.touristspot.name }} (Casa de show)
+
+                    </h3>
+                    <h5 class="mb-1">{{ package_attraction.visitation_date|date:"d/m/Y" }}</h5>
+                    <h6 class="mb-1">{{ package_attraction.attraction.touristspot.address }}</h6>
+                    <p class="mb-1">{{ package_attraction.attraction.touristspot.description }}</p>
+                    <p class="mb-1">Aberto a partir das {{ package_attraction.attraction.touristspot.concerthall.start_time|time:"H:i" }}</p>
+                    <p class="mb-1">Fechado no(a) {{ package_attraction.attraction.touristspot.concerthall.closing_day }}</p>
+                    
+                    {% if package_attraction.attraction.touristspot.concerthall.restaurant_hall %}
+                    <p class="mb-1">{{ package_attraction.attraction.touristspot.concerthall.restaurant_hall.name}} - {{ package_attraction.attraction.touristspot.concerthall.restaurant_hall.category}}</p>
+                    {% endif %}
+                    
+                    {% if user.is_superuser %}
+                    <form method="POST" action="{% url 'package:remove_attraction' pk=package.id pack_attr_pk=package_attraction.id %}">
+                        {% csrf_token %}
+                        <button class="btn btn-sm btn-danger" type="submit">Deletar</button>
+                    </form>
+                    {% endif %}
+                </li>
+                {% endif %}
+            {% endif %}
+        {% endfor %}
+        </ul>
+        
+        {% if  user.is_superuser %}
+        <a href="{% url 'package:add_attraction' package.id %}" class="btn btn-primary mt-3">Adicionar Atração</a>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    
+{% endblock %}

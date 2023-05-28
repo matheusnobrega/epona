@@ -1,0 +1,57 @@
+{% extends 'core/base.html' %}
+{% block content %}
+{% load static %}
+{% load bootstrap5 %}
+{% bootstrap_css %}
+
+<div class="container">
+    <h1>Inserir Atração</h1>
+    <form method="POST" action="">
+        {% csrf_token %}
+        <div class="form-group">
+
+            <div class="form-group">
+                <label for="tipo_atracao">Tipo de Atração:</label>
+                <select class="form-control" id="tipo_atracao" name="tipo_atracao">
+                    <option value="" disabled selected>Selecione uma opção</option>
+                    <option value="museum">Museu</option>
+                    <option value="park">Parque</option>
+                    <option value="concert_hall">Casa de Show</option>
+                    <option value="church">Igreja</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="atracao">Atração:</label>
+                <select class="form-control" id="atracao" name="atracao">
+                </select>
+            </div>
+
+
+
+        <div class="form-group">
+            <label for="data_visitacao">Data de visitação: (entre {{package.start_date|date:"d/m/Y" }} e {{package.end_date|date:"d/m/Y" }})</label>
+            <input type="date" class="form-control" id="data_visitacao" name="visitation-date">
+        </div>
+        <button type="submit" class="btn btn-primary mt-3">Inserir Atração</button>
+    </form>
+</div>
+
+<script>
+    $(document).ready(function() {
+        const attractionOptions = {
+            museum: JSON.parse('{{ museums_json|escapejs }}'),
+            church: JSON.parse('{{ churches_json|escapejs }}'),
+            park: JSON.parse('{{ parks_json|escapejs }}'),
+            concert_hall: JSON.parse('{{ concert_halls_json|escapejs }}'),
+        };
+
+        $("#tipo_atracao").on("change", function() {
+            var selectedAttraction = $(this).val();
+            var options = attractionOptions[selectedAttraction];
+            var optionsHtml = options.map(option => `<option value="${option.id}">${option.name}</option>`).join("");
+            $("#atracao").html(optionsHtml);
+        });
+    });
+</script>
+
+{% endblock %}

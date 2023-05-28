@@ -1,0 +1,28 @@
+{% extends 'core/base.html' %}
+
+
+{% block content %}
+{% load static %}
+{% load bootstrap5 %}
+{% bootstrap_css %}
+  <div class="container">
+    <div class="row">
+      <div class="col-md-6 offset-md-3">
+        <div class="card mt-5">
+          <img src="{{ city.image.url }}" class="card-img-top" alt="City Image">
+          <div class="card-body">
+            <h5 class="card-title">{{ city.name }}</h5>
+            <p class="card-text">{{ city.state.name }}</p>
+            <p class="card-text">População: {{ city.population }}</p>
+            <a href="{% url 'city:city_update' city.id %}">
+                <button type="button" class="btn btn-primary mt-3">Editar</button>
+            </a>
+            <a href="{% url 'city:city_delete' city.id %}">
+                <button type="button" class="btn btn-danger mt-3">Deletar</button>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}

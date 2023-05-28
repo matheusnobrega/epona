@@ -1,0 +1,16 @@
+{% extends 'core/base.html' %}
+
+{% block content %}
+<div class="form-container">
+<div class="form">
+        <form action="" method="POST">
+            {% csrf_token %}
+            <h2 class="form-heading">Cadastro de quarto</h2>
+            <input type="text" id="type" name="type" placeholder="Tipo de quarto" required>
+            <input type="text" id="price" name="price" placeholder="Preço" required>
+            <input type="text" id="quantity" name="quantity" placeholder="Quantidade" required>
+            <button type="submit">Enviar</button>
+        </form>
+    </div>
+</div>
+{% endblock %}

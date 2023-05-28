@@ -1,0 +1,22 @@
+{% extends 'core/base.html' %}
+
+{% block content %}
+<div class="form-container">
+<div class="form">
+        <form action="" method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            <h2 class="form-heading">Cadastro de cidade</h2>
+            <input type="text" id="nome" name="name" placeholder="Nome" required>
+            <select name="state_id" required>
+                {% for state in states %}
+                    <option value="{{ state.id }}">{{ state.name }} - {{ state.abbreviation }}</option>
+                {% endfor %}
+            </select>
+            <input type="text" id="population" name="population" placeholder="População" required><br>
+            <label for="image">Imagem da Cidade:</label>
+            <input type="file" id="image" name="image" />
+            <button type="submit">Enviar</button>
+        </form>
+    </div>
+</div>
+{% endblock %}

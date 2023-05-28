@@ -1,0 +1,26 @@
+{% extends 'core/base.html' %}
+
+
+{% block content %}
+{% load static %}
+{% load bootstrap5 %}
+{% bootstrap_css %}
+
+<div class="container">
+    <div class="row">
+      <div class="col-md-6 offset-md-3">
+        <div class="card mt-5">
+          <div class="card-body">
+            <h5 class="card-title">Deletar hotel</h5>
+            <p class="card-text">Quer mesmo deletar o hotel {{ hotel.nome }}?</p>
+            <form method="POST" action="">
+              {% csrf_token %}
+              <button type="submit" class="btn btn-danger">Confirmar</button>
+              <a href="{% url 'attraction:hotel_detail' hotel.id %}" class="btn btn-secondary">Cancelar</a>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  {% endblock %}

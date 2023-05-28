@@ -1,0 +1,85 @@
+{% extends 'core/base.html' %}
+
+
+{% block content %}
+{% load static %}
+{% load bootstrap5 %}
+{% bootstrap_css %}
+<div class="container mt-4">
+  <h1>Detalhes do Hotel</h1>
+  <hr>
+
+  <!-- Informações do Hotel -->
+  <div class="card">
+    <!-- <img src="caminho/para/imagem.jpg" class="card-img-top" alt="Imagem do Hotel"> -->
+    <div class="card-body">
+      <h5 class="card-title">{{ hotel.name }}</h5>
+      <p class="card-text">Endereço: {{ hotel.address }}, {{ hotel.city.name}} - {{ hotel.city.state.abbreviation }}</p>
+      <p class="card-text">Categoria: {{ hotel.category.description }} estrelas</p>
+      <p class="card-text">Número de Quartos: {{ hotel.number_rooms }}</p>
+      <!-- <a href="{% url 'attraction:hotel_delete' hotel.id %}" class="btn btn-primary">Atualizar</a>
+      <a href="{% url 'attraction:hotel_delete' hotel.id %}" class="btn btn-danger">Deletar</a> -->
+    </div>
+  </div>
+
+  <!-- Informações do Restaurante -->
+  <div class="card mt-4">
+    <div class="card-body">
+      <h5 class="card-title">Restaurante</h5>
+      {% if hotel.restaurant_hotel == None %}
+        <a class="btn btn-success" href="{% url 'attraction:add_restaurant' pk=hotel.id %}">Adicionar restaurante</a>
+      {% else %}
+        <p class="card-text">{{ hotel.restaurant_hotel.name }} - {{ hotel.restaurant_hotel.category.description }} 
+        {% if user.is_superuser %}
+        <form method="POST" action="{% url 'attraction:remove_restaurant' pk=hotel.id %}">
+          {% csrf_token %}
+          <button class="btn btn-sm btn-danger" type="submit">Deletar</button>
+        </form>
+        {% endif %}
+          </p>
+      {% endif %}
+    </div>
+  </div>
+
+  <!-- Tipos de Quartos -->
+  <div class="card mt-4">
+    <div class="card-body">
+      <h5 class="card-title">Tipos de Quartos</h5>
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Nome</th>
+            <th>Preço</th>
+            <th>Quantidade</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for room in rooms %}
+          <tr>
+            <td>{{ room.type }}</td>
+            <td>{{ room.price }}</td>
+            <td>{{ room.quantity }}</td>
+            {% if user.is_superuser %}
+            <td>
+              <form method="POST" action="{% url 'attraction:remove_room' pk=hotel.id room_pk=room.id %}">
+                {% csrf_token %}
+                <button class="btn btn-sm btn-danger" type="submit">Deletar</button>
+              </form>
+            </td>
+            {% endif %}
+          </tr>
+          {% endfor %}
+          <!-- Adicione mais linhas conforme necessário -->
+        </tbody>
+      </table>
+      {% if user.is_superuser %}
+      <a class="btn btn-success" href="{% url 'attraction:add_room' pk=hotel.id %}">Adicionar Tipo de Quarto</a>
+      {% endif %}
+    </div>
+  </div>
+</div>
+
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+{% endblock %}
+   

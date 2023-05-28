@@ -1,0 +1,129 @@
+{% extends 'core/base.html' %}
+{% load static %}
+
+{% block content %}
+
+
+<header>
+  <main>
+    
+    <section id="search-bar" style="background-image: url(/media/images/atracao-turistica.jfif);"><!-- <section id="search-bar" style="background-image: url({% static 'media/atracao-turistica.jfif' %});"> -->
+      <div class="search-section">
+        <form action="" method="POST">
+          {% csrf_token %}
+          <div class="search-title">
+            <h1>Procure o seu destino</h1>
+          </div>
+          <div style="float:left;margin-right:20px;">
+            <label for="destino">Destino</label>
+            <!-- <input type="text" id="destino" name="destino"> -->
+
+            <select name="city" required>
+              {% for city in cities %}
+                  <option value="{{ city.id }}">{{ city.name }} - {{ city.state.abbreviation }}</option>
+              {% endfor %}
+          </select>
+          </div>
+          <div style="float:left;">
+            <label for="start-date">Data de ida</label>
+            <input type="date" id="dataida" name="start-date">
+          </div>
+          <div style="float:left;">
+            <label for="end-date">Data de volta</label>
+            <input type="date" id="datavolta" name="end-date">
+          </div> <br>
+          <input type="submit" value="BUSCAR" class="button-search">
+        </form>
+      </div>
+      
+    </section>
+
+    <section id="most-searched">
+      <div class="searched-text">
+        <h1>Pacotes mais populares</h1>
+      </div>
+      
+      {% for package in packages %}
+        {{ package.city }}
+      {% endfor %}
+
+      <div class="card-container">
+        {% for package_info in package_data %}
+        <div class="packet-card">
+        <figure class="card-image">
+            <img src="/media/{{ package_info.package.city.image }}">
+        </figure>
+        <div class="card-content">
+            <a href="{% url 'package:package_detail' package_info.package.id %}">Pacote</a>
+            <h3><h1>{{ package_info.package.city.name }} - {{ package_info.package.city.state.abbreviation }}</h1></h3>
+            <p class="tour-date">{{ package_info.package.start_date|date:"d/m/Y" }} - {{ package_info.package.end_date|date:"d/m/Y" }}</p>
+            <div class="hotel-info">
+            <figure class="hotel-icon">
+                <img src="/media/icons/hoteis.png" alt="">
+            </figure>
+            <h5>{{ package_info.package.hotel.name }}</h5>
+            </div>
+            <div class="attractions-icon">
+            {% if package_info.has_museum %}
+                <img src='/media/icons/galeria.png'>
+            {% endif %}
+            {% if package_info.has_church %}
+                <img src='/media/icons/igreja.png'>
+            {% endif %}
+            {% if package_info.has_park %}
+                <img src="/media/icons/parque.png" alt="">
+            {% endif %}
+            {% if package_info.has_concert_hall %}
+                <img src="/media/icons/show.png" alt="">
+            {% endif %}
+            </div>
+            <h4>R${{ package_info.package.price }}</h4>
+        </div>
+        </div>
+        {% empty %}
+        <h1>Você ainda não possui pacotes. Compre um <a href="{% url 'package:list_packages' %}">aqui</a></h1>
+    {% endfor %}
+      </div>
+    </section>
+
+    <section id="comments">
+      <div class="comments-header">
+        <h1>Comentários</h1>
+      </div>
+
+      <div class="comments">
+        <div class="comment-inner">
+          <div class="comment-content">
+            <img src="/media/icons/perfil.jpg" alt="">
+            <p class="name-author">Vinícius Lopes</p>
+            <p class="comment-desc">Simplesmente fantástico!</p>
+            <p class="full-desc">A agência de turismo me surpreendeu desde o primeiro contato. Gostei muito das opções
+              de destinos que eles oferecem, além da atenção dedicada aos detalhes. </p>
+          </div>
+        </div>
+
+        <div class="comment-inner">
+          <div class="comment-content">
+            <img src="/media/icons/perfil-junio.png" alt="">
+            <p class="name-author">Hidelbrando Júnior</p>
+            <p class="comment-desc">Uma viagem inesquecível!</p>
+            <p class="full-desc">Estou encantado com a agência de turismo e tudo o que ela proporcionou. Gostei muito da
+              forma como eles se preocupam em combinar a beleza dos destinos com a cultura local, proporcionando uma
+              imersão completa.</p>
+          </div>
+        </div>
+
+        <div class="comment-inner">
+          <div class="comment-content">
+            <img src="/media/icons/perfil-vanterson.jpg" alt="">
+            <p class="name-author">Vanterson Venâncio</p>
+            <p class="comment-desc">Uma experiência incrível!</p>
+            <p class="full-desc"> Essa agência de turismo vai além das minhas expectativas. Fui tratado com profissionalismo e simpatia. Os roteiros personalizados que
+              eles oferecem são verdadeiras obras de arte, criando uma experiência única em cada viagem.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+    
+    
+{% endblock %}

@@ -1,0 +1,25 @@
+{% extends 'core/base.html' %}
+
+{% block content %}
+
+<div class="form-container">
+    <div class="form">
+            <form action="" method="POST">
+                {% csrf_token %}
+                <h2 class="form-heading">Cadastro de fundador</h2>
+                <input type="text" id="name" name="name" placeholder="Nome" required>
+                <input type="date" id="foundation-date" name="birth-date" required>
+                <input type="date" id="foundation-date" name="death-date" required>
+                <input type="text" id="nationality" name="nationality" placeholder="Nacionalidade" required>
+                <input type="text" id="professional" name="professional" placeholder="Atividade profissional" required>
+                
+                <!-- <select name="museum_id" required>
+                    {% for museum in museums %}
+                        <option value="{{ museum.id }}">{{ museum.name }}</option>
+                    {% endfor %}
+                </select> -->
+                <button type="submit">Enviar</button>
+            </form>
+        </div>
+    </div>
+{% endblock %}

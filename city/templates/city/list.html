@@ -1,0 +1,43 @@
+{% extends 'core/base.html' %}
+
+{% block content %}
+{% load static %}
+{% load bootstrap5 %}
+{% bootstrap_css %}
+
+<style>
+    .city-card {
+      max-width: 400px;
+      margin-bottom: 20px;
+    }
+    .city-card img {
+      width: 100%;
+      height: auto;
+    }
+</style>
+
+<div class="container">
+    <h1>Lista de Cidades <a href="{% url 'create:create_city' %}" class="btn btn-primary">Adicionar cidade</a></h1>
+    <div class="row">
+      
+      {% for city in cities %}
+      <div class="col-md-6">
+        <div class="city-card">
+          <img src="/media/{{ city.image }}">
+          <div class="card-body">
+            <h5 class="card-title">{{ city.name }}</h5>
+            <p class="card-text">{{ city.state.name}} - {{city.state.abbreviation}} </p>
+            <p class="card-text">População: {{ city.population }}</p>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+
+
+
+
+{% endblock %}
+
+

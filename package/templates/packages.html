@@ -1,0 +1,42 @@
+{% extends 'core/base.html' %}
+
+{% block content %}
+<section id="most-searched">
+<div class="searched-text">
+    <h1>Pacotes</h1>
+  </div>
+  
+{% for package in packages %}
+<div class="card-container">
+    <div class="packet-card">
+      <figure class="card-image">
+        <img src="/media/{{ package.city.image }}">
+      </figure>
+      <div class="card-content">
+        <a href="#">Pacote</a>
+        <h3><h1>{{ package.city.name }} - {{ package.city.state.abbreviation }}</h1></h3>
+        <p class="tour-date">{{ package.start_date|date:"d/m/Y" }} - {{ package.end_date|date:"d/m/Y" }}</p>
+        <div class="hotel-info">
+          <figure class="hotel-icon">
+            <img src="/img/hoteis.png" alt="">
+          </figure>
+          <h5>{{ package.hotel.name }}</h5>
+        </div>
+        <p></p>
+        <div class="attractions-icon">
+          <img src="img/galeria.png" alt="">
+          <img src="img/igreja.png" alt="">
+          <img src="img/comida-e-restaurante.png" alt="">
+          <img src="img/parque.png" alt="">
+          <img src="img/show.png" alt="">
+        </div>
+        <h4>R${{ package.price }}</h4>
+      </div>
+    </div>
+</div>
+
+    {% empty %}
+    <h2>Não há pacotes disponíveis para essa data</h2>
+{% endfor %}
+</section>
+{% endblock %}

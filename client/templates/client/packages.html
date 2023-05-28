@@ -1,0 +1,58 @@
+{% extends "core/base.html" %}
+
+{% block content %}
+{% load static %}
+
+<section id="most-searched">
+    <div class="searched-text">
+        <h1>Seus Pacotes</h1>
+        
+        {% if total_cost %}
+        <h4>Total: R${{ total_cost }}</h4>
+        {% endif %}
+
+    </div>
+
+    
+    <div class="card-container">
+        {% for package_info in package_data %}
+        <div class="packet-card">
+        <figure class="card-image">
+            <img src="/media/{{ package_info.package.city.image }}">
+        </figure>
+        <div class="card-content">
+            <a href="{% url 'package:package_detail' package_info.package.id %}">Pacote</a>
+            <h3><h1>{{ package_info.package.city.name }} - {{ package_info.package.city.state.abbreviation }}</h1></h3>
+            <p class="tour-date">{{ package_info.package.start_date|date:"d/m/Y" }} - {{ package_info.package.end_date|date:"d/m/Y" }}</p>
+            <div class="hotel-info">
+            <figure class="hotel-icon">
+                <img src="/media/icons/hoteis.png" alt="">
+            </figure>
+            <h5>{{ package_info.package.hotel.name }}</h5>
+            </div>
+            <div class="attractions-icon">
+            {% if package_info.has_museum %}
+                <img src='/media/icons/galeria.png'>
+            {% endif %}
+            {% if package_info.has_church %}
+                <img src='/media/icons/igreja.png'>
+            {% endif %}
+            {% if package_info.has_park %}
+                <img src="/media/icons/parque.png" alt="">
+            {% endif %}
+            {% if package_info.has_concert_hall %}
+                <img src="/media/icons/show.png" alt="">
+            {% endif %}
+            </div>
+            <h4>R${{ package_info.package.price }}</h4>
+        </div>
+        </div>
+        {% empty %}
+        <h1>Você ainda não possui pacotes. Compre um <a href="{% url 'package:list_packages' %}">aqui</a></h1>
+    {% endfor %}
+    </div>
+        
+
+</section>
+        
+{% endblock %}

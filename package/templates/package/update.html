@@ -1,0 +1,59 @@
+{% extends 'core/base.html' %}
+
+{% block content %}
+
+<div class="form-container">
+    <div class="form">
+            <form action="" method="POST">
+                {% csrf_token %}
+                <h2 class="form-heading">Atualizar pacote</h2>
+                <input type="text" id="price" name="price" placeholder="Preço" value="{{ package.price }}" required>
+                <input type="date" id="start-date" name="start-date" value="{{ package.start_date }}" required>
+                <input type="date" id="end-date" value="{{ package.end_date }}" name="end-date" required>
+
+                <select id="city" name="city" required>
+                    {% for city in cities %}
+                        <option value="{{ city.id }}" {% if city.id == package.city.id %} selected {% endif %}>{{ city.name }} - {{ city.state.abbreviation }}</option>
+                    {% endfor %}
+                </select>
+
+                <select id="hotel" name="hotel" required>
+                </select>
+
+                <button type="submit">Atualizar</button>
+            </form>
+        </div>
+    </div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+      var citySelect = document.getElementById('city');
+      var hotelSelect = document.getElementById('hotel');
+  
+      citySelect.addEventListener('change', function() {
+        var cityId = citySelect.value;
+        var url = '/ajax/hoteis/?city_id=' + cityId;
+  
+        fetch(url)
+          .then(function(response) {
+            return response.json();
+          })
+          .then(function(data) {
+            hotelSelect.innerHTML = '';
+  
+            data.hotels.forEach(function(hotel) {
+              var option = document.createElement('option');
+              option.value = hotel.id;
+              option.textContent = hotel.name;
+              hotelSelect.appendChild(option);
+            });
+          });
+      });
+    });
+  </script>
+
+{% endblock %}
+  
+  
+  
+  

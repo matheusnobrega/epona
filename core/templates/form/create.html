@@ -1,0 +1,18 @@
+{% extends 'core/base.html' %}
+
+{% block content %}
+<div class="form-container">
+    <div class="form">
+        <h2 class="form-heading">Cadastrar componentes</h2>
+        <a href="{% url 'create:create_city' %}"><button>Cidade</button></a>
+        <a href="{% url 'create:create_hotel' %}"><button>Hotel</button></a>
+        <a href="{% url 'create:create_restaurant' %}"><button>Restaurante</button></a>
+        <a href="{% url 'create:create_museum' %}"><button>Museu</button></a>
+        <a href="{% url 'create:create_founder' %}"><button>Fundador</button></a>
+        <a href="{% url 'create:create_park' %}"><button>Parque</button></a>
+        <a href="{% url 'create:create_concert_hall' %}"><button>Casa de show</button></a>
+        <a href="{% url 'create:create_church' %}"><button>Igreja</button></a>
+        <a href="{% url 'create:create_package' %}"><button>Pacote</button></a>
+    </div>
+  </div>
+{% endblock %}

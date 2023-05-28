@@ -1,0 +1,29 @@
+{% extends 'core/base.html' %}
+
+{% block content %}
+
+<div class="form-container">
+    <div class="form">
+            <form action="" method="POST">
+                {% csrf_token %}
+                <h2 class="form-heading">Cadastro de restaurante</h2>
+                <input type="text" id="nome" name="name" placeholder="Nome do restaurante" required>
+                <input type="text" id="endereco" name="address" placeholder="Endereço" required>
+
+                <select name="city_id" required>
+                    {% for city in cities %}
+                        <option value="{{ city.id }}">{{ city.name }} - {{ city.state.abbreviation }}</option>
+                    {% endfor %}
+                </select>
+
+                <select name="category_id" required>
+                    {% for category in categories %}
+                        <option value="{{ category.id }}"> {{ category.description}}</option>
+                    {% endfor %}
+                </select>
+
+                <button type="submit">Enviar</button>
+            </form>
+        </div>
+    </div>
+{% endblock %}

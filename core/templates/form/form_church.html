@@ -1,0 +1,27 @@
+{% extends 'core/base.html' %}
+
+{% block content %}
+
+<div class="form-container">
+    <div class="form">
+            <form action="" method="POST">
+                {% csrf_token %}
+                <h2 class="form-heading">Cadastro de igreja</h2>
+                <input type="text" id="name" name="name" placeholder="Nome" required>
+                <input type="text" id="address" name="address" placeholder="Endereço" required>
+                <input type="text" id="description" name="description" placeholder="Descrição" required>
+                
+                <select name="city_id" required>
+                    {% for city in cities %}
+                        <option value="{{ city.id }}">{{ city.name }} - {{ city.state.abbreviation }}</option>
+                    {% endfor %}
+                </select>
+
+                <input type="text" id="construction-style" name="construction-style" placeholder="Estilo de construção" required>
+                <input type="date" id="construction-date" name="construction-date" required>
+
+                <button type="submit">Enviar</button>
+            </form>
+        </div>
+    </div>
+{% endblock %}
